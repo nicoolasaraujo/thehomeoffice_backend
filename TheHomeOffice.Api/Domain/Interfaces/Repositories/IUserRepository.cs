@@ -9,6 +9,6 @@ namespace TheHomeOffice.Api.Domain.Interfaces.Repositories
     public interface IUserRepository
     {
         public IEnumerable<User> FindAll();
-
+        Task<IEnumerable<User>> FindByCondition(Func<User, bool> predicate);
     }
 }
