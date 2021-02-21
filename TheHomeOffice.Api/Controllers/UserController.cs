@@ -59,5 +59,23 @@ namespace TheHomeOffice.Api.Controllers
             return Ok(userDto);
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<User> Getuser([FromBody] int id){
+            User user =  new User();
+            var getUser = await this.userService.GetUser(id);
+            user = getUser;
+            return user;
+        }
+
+        [HttpDelete]
+        [Authorize]
+        public async Task<Task<string>> Deleteuser([FromBody] int id){
+            User user = new User();
+            user = await Getuser(id);
+            await this.userService.DeleteUser(user);
+            return Task.FromResult("Usuario deletado com sucesso");
+        }
+
     }
 }

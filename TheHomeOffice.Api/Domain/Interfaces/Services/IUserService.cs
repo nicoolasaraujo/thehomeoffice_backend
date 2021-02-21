@@ -11,5 +11,7 @@ namespace TheHomeOffice.Api.Domain.Interfaces.Services
     {
         Task<User> CreateUser(User mappedUser);
         Task<AuthenticationResult> ValidateLogin(string email, string password);
+        Task<User> GetUser(int id);
+        Task DeleteUser(User user);
     }
 }

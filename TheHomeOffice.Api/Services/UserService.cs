@@ -28,5 +28,18 @@ namespace TheHomeOffice.Api.Services
                     ReturnedUser = users.Where(x => x.Email == email && x.Password == password).FirstOrDefault()
                 });
         }
+
+        public Task<User> GetUser(int id){
+            User user = new User();
+            user = users.Find(x=> x.Id ==id );
+            return Task.FromResult(user);
+        }
+
+        public Task DeleteUser(User user){
+            if(users.Remove(user)){
+                return Task.FromResult("Usuario deletado.");
+            }
+            return Task.FromResult("Não foi possivel deletar o usuario");
+        }
     }
 }
