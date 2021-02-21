@@ -8,6 +8,5 @@ namespace TheHomeOffice.Api.Domain.Models
         public string State { get; set; }
         public string City { get; set; }
         public string Neighborhood { get; set; }
-
     }
 }

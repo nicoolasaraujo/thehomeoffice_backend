@@ -73,11 +73,11 @@ namespace TheHomeOffice.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("/{userId}")]
+        [Route("{userId}")]
         public async Task<ActionResult> DeleteUser([FromRoute] int userId)
         {
             var deleteResult = await this.userService.DeleteUser(userId);
-            if (deleteResult.Status == Ardalis.Result.ResultStatus.NotFound )
+            if (deleteResult.Status == Ardalis.Result.ResultStatus.NotFound)
             {
                 return NotFound("Usuário não existe no banco de dados!");
             }
@@ -86,7 +86,7 @@ namespace TheHomeOffice.Api.Controllers
         }
 
         [HttpPut]
-        [Route("/{userId}")]
+        [Route("{userId}")]
         public async Task<ActionResult> UpdateUser([FromRoute] int userId, [FromBody] User user)
         {
             var updateResult = await this.userService.UpdateUser(userId, user);
@@ -96,6 +96,14 @@ namespace TheHomeOffice.Api.Controllers
             }
 
             return Ok(updateResult.Value);
+        }
+
+        [HttpPost]
+        [Route("{userId}/places")]
+        public async Task<ActionResult> CreatePlace([FromRoute] int userId, [FromBody] Address address)
+        {
+            await this.userService.UpdatePlace(userId, address);
+            return Ok();
         }
     }
 }

@@ -58,7 +58,6 @@ namespace TheHomeOffice.Api.Services
 
         public async Task<Result<User>> UpdateUser(int id, User user)
         {
-
             var userToUpdate = await this.userRepository.GetByCondition(x => x.Id == id);
             if (userToUpdate?.Count() <= 0)
             {
@@ -69,6 +68,14 @@ namespace TheHomeOffice.Api.Services
             await this.userRepository.UpdateAsync(updatedUser);
 
             return Result<User>.Success(updatedUser);
+        }
+
+        public async Task UpdatePlace(int userId, Address address)
+        {
+            var userToUpdate = await this.userRepository.GetByCondition(x => x.Id == userId);
+            var updateData = userToUpdate.FirstOrDefault();
+            updateData.UserAddress = address;
+            await this.userRepository.UpdateAsync(updateData);
         }
     }
 }
