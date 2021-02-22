@@ -8,6 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["TheHomeOffice.Api/TheHomeOffice.Api.csproj", "TheHomeOffice.Api/"]
 RUN dotnet restore "TheHomeOffice.Api/TheHomeOffice.Api.csproj"
+
 COPY . .
 WORKDIR "/src/TheHomeOffice.Api"
 RUN dotnet build "TheHomeOffice.Api.csproj" -c Release -o /app/build
