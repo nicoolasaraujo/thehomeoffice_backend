@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TheHomeOffice.aApi.Infrastructure.Database;
 using TheHomeOffice.Api.Domain.Models;
+using TheHomeOffice.aApi.Infrastructure.Database;
 
 namespace TheHomeOffice.Api.Migrations
 {
     [DbContext(typeof(TheHomeOfficeContext))]
-    [Migration("20210220205043_createUserColumns")]
-    partial class createUserColumns
+    [Migration("20210221235928_createDatabase")]
+    partial class createDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,20 +29,42 @@ namespace TheHomeOffice.Api.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Email")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Password")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar");
 
                     b.Property<Address>("UserAddress")
                         .HasColumnType("jsonb");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsAdmin")
+                        .IsUnique();
+
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            Email = "admin@admin.com",
+                            IsAdmin = true,
+                            Name = "admin",
+                            Password = "admin"
+                        });
                 });
 #pragma warning restore 612, 618
         }

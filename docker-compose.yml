@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+    web:
+        build: .
+        ports:
+            - "8000:80"
+        depends_on:
+            - db
+    db:
+        restart: always
+        image: "postgres"
+        volumes:
+            - ./post-data:/var/lib/postgresql/data
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        environment:
+            POSTGRES_PASSWORD: Pass2020!
+            POSTGRES_USER: postgres
+            POSTGRES_DB: thehomeofficedb
+            
+volumes:
+  post-data:

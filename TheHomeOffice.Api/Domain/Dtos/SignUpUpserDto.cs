@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheHomeOffice.Api.Domain.Dtos
 {
-    public class SignupUserDto
+    public class SaveUser
     {
         [Required]
         public string Name { get; set; }

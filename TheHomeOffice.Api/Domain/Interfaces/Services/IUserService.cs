@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace TheHomeOffice.Api.Domain.Interfaces.Services
         Task<Result<User>> DeleteUser(int id);
         Task<Result<User>> UpdateUser(int id, User user);
         Task UpdatePlace(int userId, Address address);
+        Task<IEnumerable<User>> GetUsers();
+        Task<User> GetUserById(int userId);
     }
 }

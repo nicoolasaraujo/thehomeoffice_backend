@@ -37,7 +37,7 @@ namespace TheHomeOffice.Api.Services
             var user = users.FirstOrDefault();
             if (user == null)
             {
-                Result<User>.Invalid(new List<ValidationError>() { new ValidationError() { ErrorMessage = "Usuário ou senha incorreto!" }  });
+                return Result<User>.Invalid(new List<ValidationError>() { new ValidationError() { ErrorMessage = "Usuário ou senha incorreto!" }  });
             }
 
             return Result<User>.Success(user, "Logado, vai filhão!");    
@@ -76,6 +76,17 @@ namespace TheHomeOffice.Api.Services
             var updateData = userToUpdate.FirstOrDefault();
             updateData.UserAddress = address;
             await this.userRepository.UpdateAsync(updateData);
+        }
+
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            return await this.userRepository.GetByCondition(u => !u.IsAdmin);
+        }
+
+        public async Task<User> GetUserById(int userId)
+        {
+            var users = await this.userRepository.GetByCondition(u => u.Id == userId);
+            return users.FirstOrDefault();
         }
     }
 }

@@ -28,7 +28,9 @@ namespace TheHomeOffice.Api.Services
                 {
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                         new Claim(ClaimTypes.Email, user.Email),
-                        new Claim(ClaimTypes.Name, user.Name)
+                        new Claim(ClaimTypes.Name, user.Name),
+                        new Claim(ClaimTypes.Role, user.IsAdmin ? "admin": "user")
+
                 }),
                 Expires = DateTime.UtcNow.AddYears(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

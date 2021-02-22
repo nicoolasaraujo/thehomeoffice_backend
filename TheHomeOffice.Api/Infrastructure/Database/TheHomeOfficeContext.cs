@@ -3,6 +3,7 @@ using AutoMapper.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TheHomeOffice.Api.Domain.Models;
+using TheHomeOffice.Api.Infrastructure.Database;
 
 namespace TheHomeOffice.aApi.Infrastructure.Database
 {
@@ -19,6 +20,7 @@ namespace TheHomeOffice.aApi.Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.ApplyConfiguration<User>(new UserMap());
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
